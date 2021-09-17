@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/16.0">
+
+
+	<id>FarmBricks.debug</id>
+	<filename>FarmBricks</filename>
+
+	<name>Farm Bricks-debug</name>
+
+	<versionNumber>0.0.5</versionNumber>
+	
+	<initialWindow>
+
+		<content>FallingBricks.swf</content>
+       <aspectRatio>portrait</aspectRatio>
+        <renderMode>direct</renderMode>
+		<autoOrients>false</autoOrients>
+        <fullScreen>true</fullScreen>
+        <visible>true</visible>
+    </initialWindow>
+	 <icon>
+	
+		<image48x48>icons/icon_48.png</image48x48>
+		<image57x57>icons/icon_57.png</image57x57>
+		<image72x72>icons/icon_72.png</image72x72>
+		<image76x76>icons/icon_76.png</image76x76>
+		<image96x96>icons/icon_96.png</image96x96>
+		<image114x114>icons/icon_114.png</image114x114>
+		<image120x120>icons/icon_120.png</image120x120>
+		<image144x144>icons/icon_144.png</image144x144>
+		<image152x152>icons/icon_152.png</image152x152>
+	</icon>
+
+		<android> 
+   	<manifestAdditions>
+		<![CDATA[
+		<manifest android:installLocation="auto">
+			 <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="19" />
+			 
+				<uses-permission android:name="android.permission.INTERNET"/>
+				<uses-permission android:name="android.permission.WAKE_LOCK"/>
+			    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+				<application>
+				<meta-data android:name="com.google.android.gms.version" android:value="4452000"/>
+					 <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+				</application>
+			</manifest>
+		]]>
+        </manifestAdditions>
+	    <!-- Color depth for the app (either "32bit" or "16bit"). Optional. Default 16bit before namespace 3.0, 32bit after -->
+        <!-- <colorDepth></colorDepth> -->
+        <!-- Indicates if the app contains video or not. Necessary for ordering of video planes with graphics plane, especially in Jellybean - if you app does video this must be set to true - valid values are true or false -->
+        <!-- <containsVideo></containsVideo> -->
+   </android> 
+	<!-- End of the schema for adding the android specific tags in AndroidManifest.xml file -->
+
+    <iPhone>
+        <InfoAdditions><![CDATA[
+			<key>UIDeviceFamily</key>
+			<array>
+				<string>1</string>
+				<string>2</string>
+			</array>
+		]]></InfoAdditions>
+        <requestedDisplayResolution>high</requestedDisplayResolution>
+    </iPhone>
+    
+    <extensions>
+<extensionID>com.milkmangames.extensions.AdMob</extensionID>
+<extensionID>com.milkmangames.extensions.GoogleServices</extensionID>
+</extensions>
+    
+
+
+</application>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Farm Bricks JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="src/PIXI.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.0/TweenMax.min.js"></script>
+
+    <script src="src/com/yonnyzohar/global/Parameters.js"></script>
+    <script src="src/com/yonnyzohar/global/Methods.js"></script>
+
+    <script src="src/com/Base.js"></script>
+    <script src="src/com/EventDispatcher.js"></script>
+
+    <script src="src/com/Main.js"></script>
+
+
+    <script src="src/com/yonnyzohar/assets/Brick.js"></script>
+    <script src="src/com/yonnyzohar/assets/GameButton.js"></script>
+    <script src="src/com/yonnyzohar/assets/ScoreJumper.js"></script>
+    <script src="src/com/yonnyzohar/assets/ShockWave.js"></script>
+    <!-- <script src="src/com/yonnyzohar/assets/Sounds.js"></script> -->
+    <script src="src/com/yonnyzohar/assets/TextureAtlas.js"></script>
+    <script src="src/com/yonnyzohar/assets/Timer.js"></script>
+
+    <script src="src/com/yonnyzohar/assets/TextField.js"></script>
+
+    <script src="src/com/yonnyzohar/logic/AdjecantChecker.js"></script>
+    <script src="src/com/yonnyzohar/logic/BlockMovementChecker.js	"></script>
+    <script src="src/com/yonnyzohar/logic/BoardManager.js"></script>
+    <script src="src/com/yonnyzohar/logic/BrickResetter.js"></script>
+    <script src="src/com/yonnyzohar/logic/DuplicateRemover.js"></script>
+    <script src="src/com/yonnyzohar/logic/FallChecker.js"></script>
+    <script src="src/com/yonnyzohar/logic/GlobalEventDispatcher.js"></script>
+    <script src="src/com/yonnyzohar/logic/GlobalMatchChecker.js"></script>
+    <script src="src/com/yonnyzohar/logic/Levels.js"></script>
+    <script src="src/com/yonnyzohar/logic/MatchChecker.js"></script>
+    <script src="src/com/yonnyzohar/logic/NewBoardCreater.js"></script>
+    <script src="src/com/yonnyzohar/logic/PossibleMatchFinder.js"></script>
+
+    <script src="src/com/yonnyzohar/pools/BGTilePool.js"></script>
+    <script src="src/com/yonnyzohar/pools/BoomPool.js"></script>
+    <script src="src/com/yonnyzohar/pools/BricksPool.js"></script>
+    <script src="src/com/yonnyzohar/pools/JumpersPool.js"></script>
+
+    <script src="src/com/yonnyzohar/screens/Bg.js"></script>
+    <script src="src/com/yonnyzohar/screens/Game.js"></script>
+    <script src="src/com/yonnyzohar/screens/Lobby.js"></script>
+
+</head>
+<style>
+    body,
+    html {
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin: 0;
+        padding: 0;
+    }
+    
+    canvas {
+        margin: 0 auto 0 auto;
+        display: block;
+    }
+</style>
+
+<body onload="init()">
+    <script type="text/javascript">
+        //var trace = console.log;
+        var main = null;
+        var renderer = null;
+        var elem = document.body; // Make the body go full screen.
+
+        function trace(_str) {
+            //console.log(_str)
+        }
+
+        function init() {
+            var type = "WebGL"
+            if (!PIXI.utils.isWebGLSupported()) {
+                type = "canvas"
+            }
+
+            PIXI.utils.sayHello(type);
+
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+            if (w > h) {
+                w = h * 0.5;
+            }
+
+
+            renderer = PIXI.autoDetectRenderer(w, h);
+
+            //Add the canvas to the HTML document
+            document.body.appendChild(renderer.view);
+            document.body.style.backgroundColor = "black";
+            renderer.backgroundColor = 0x000000;
+
+            main = new Main();
+
+            Parameters.gameHolder = main;
+            Parameters.theStage = renderer.view;
+
+            renderer.render(main);
+            update();
+            //document.onwebkitfullscreenchange = requestFullScreen;
+            //document.documentElement.onclick = requestFullScreen;
+            //document.onkeydown = requestFullScreen;
+
+        }
+
+        function update() {
+            main.update();
+            renderer.render(main);
+            requestAnimationFrame(update);
+        }
+
+        function getQuad(w, h, hex) {
+            var graphics = new PIXI.Graphics();
+            graphics.beginFill(hex);
+            graphics.drawRect(0, 0, w, h);
+            return graphics
+        }
+
+        function requestFullScreen() {
+            document.onwebkitfullscreenchange = null;
+            document.documentElement.onclick = null;
+            document.onkeydown = null;
+            var element = elem;
+            // Supports most browsers and their versions.
+            var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+            if (requestMethod) { // Native full screen.
+                requestMethod.call(element);
+            } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+                var wscript = new ActiveXObject("WScript.Shell");
+                if (wscript !== null) {
+                    wscript.SendKeys("{F11}");
+                }
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
